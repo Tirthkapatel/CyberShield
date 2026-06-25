@@ -54,7 +54,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const suffix = hash.substring(5);
 
       // 2. Send only prefix to our backend (k-Anonymity)
-      const response = await fetch('http://localhost:3000/api/check-password', {
+      const response = await fetch('/api/check-password', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ sha1Prefix: prefix })

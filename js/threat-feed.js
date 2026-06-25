@@ -8,7 +8,7 @@ document.addEventListener('DOMContentLoaded', () => {
   
   async function pollThreats() {
     try {
-      const response = await fetch('http://localhost:3000/api/threats');
+      const response = await fetch('/api/threats');
       if (!response.ok) throw new Error("Network error");
       const result = await response.json();
       

@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
       // We will only check the first 2 URLs to avoid hitting rate limits instantly
       for (let i = 0; i < Math.min(extractedUrls.length, 2); i++) {
         try {
-          const response = await fetch('http://localhost:3000/api/check-url', {
+          const response = await fetch('/api/check-url', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ url: extractedUrls[i] })

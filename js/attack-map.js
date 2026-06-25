@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   async function fetchRealThreats() {
     try {
-      const response = await fetch('http://localhost:3000/api/threats');
+      const response = await fetch('/api/threats');
       if (!response.ok) throw new Error("Network response was not ok");
       const result = await response.json();
       return result.data || [];

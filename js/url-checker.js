@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     resultsDiv.hidden = false;
 
     try {
-      const response = await fetch('http://localhost:3000/api/check-url', {
+      const response = await fetch('/api/check-url', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ url: url })

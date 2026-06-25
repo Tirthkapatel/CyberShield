@@ -75,7 +75,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     // Fetch True Real-Time Distribution from Backend
-    fetch('http://localhost:3000/api/stats')
+    fetch('/api/stats')
       .then(res => res.json())
       .then(stats => {
           if(stats && stats.distribution) {

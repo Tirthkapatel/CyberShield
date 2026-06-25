@@ -56,7 +56,7 @@ document.addEventListener('DOMContentLoaded', () => {
   }, observerOptions);
 
   // Fetch true live stats from backend before animating
-  fetch('http://localhost:3000/api/stats')
+  fetch('/api/stats')
     .then(res => res.json())
     .then(stats => {
       if (stats) {

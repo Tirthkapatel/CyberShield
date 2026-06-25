@@ -1,0 +1,71 @@
+/* Carousel Section Styles */
+.carousel-section {
+  padding: 80px 0;
+  overflow: hidden;
+}
+
+.carousel-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  padding: 40px;
+  border-left: 4px solid var(--accent);
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s var(--transition-smooth);
+}
+
+.carousel-slide {
+  min-width: 100%;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.carousel-icon {
+  font-size: 3rem;
+  color: var(--secondary);
+  margin-bottom: 20px;
+  filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.4));
+}
+
+.carousel-content h3 {
+  font-size: 1.8rem;
+  margin-bottom: 15px;
+  color: var(--text-primary);
+}
+
+.carousel-content p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.carousel-dots {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 30px;
+}
+
+.dot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--surface-light);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dot.active {
+  background: var(--accent);
+  box-shadow: 0 0 10px var(--accent);
+  transform: scale(1.2);
+}

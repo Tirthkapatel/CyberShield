@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CyberShield | Protect. Detect. Defend.</title>
+  
+  <!-- Favicon -->
+  <link rel="icon" href="assets/icons/favicon.svg" type="image/svg+xml">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+  <!-- GSAP + ScrollTrigger -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" defer></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js" defer></script>
+
+  <!-- Three.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
+  
+  <!-- html2pdf.js for PDF export -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" defer></script>
+
+  <!-- Chart.js -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js" defer></script>
+
+  <!-- AmCharts for World Map -->
+  <script src="https://cdn.amcharts.com/lib/5/index.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/map.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/geodata/worldLow.js"></script>
+  <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js"></script>
+
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="css/main.css?v=2">
+  <link rel="stylesheet" href="css/animations.css">
+  <link rel="stylesheet" href="css/glassmorphism.css">
+  <link rel="stylesheet" href="css/navbar.css">
+  <link rel="stylesheet" href="css/hero.css">
+  <link rel="stylesheet" href="css/dashboard.css">
+  <link rel="stylesheet" href="css/tools.css?v=2">
+  <link rel="stylesheet" href="css/threats.css">
+  <link rel="stylesheet" href="css/about.css">
+  <link rel="stylesheet" href="css/carousel.css">
+  <link rel="stylesheet" href="css/stats.css">
+  <link rel="stylesheet" href="css/footer.css">
+  <link rel="stylesheet" href="css/responsive.css">
+  <link rel="stylesheet" href="css/cyberbot.css?v=12">
+</head>
+<body>
+  <!-- Bootloader Overlay -->
+  <div id="bootloader" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: #0A0E1A; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; font-family: 'JetBrains Mono', monospace; color: #00FFD1;">
+    <i class="fas fa-shield-alt" style="font-size: 4rem; margin-bottom: 20px; animation: pulse 1s infinite;"></i>
+    <h2>Initializing CyberShield OS...</h2>
+    <div style="width: 300px; height: 4px; background: rgba(0, 212, 255, 0.2); margin-top: 20px; border-radius: 2px; overflow: hidden;">
+      <div id="bootProgress" style="width: 0%; height: 100%; background: #00FFD1; transition: width 0.1s linear;"></div>
+    </div>
+    <p id="bootText" style="margin-top: 15px; font-size: 0.85rem; color: #B0BEC5;">Loading security modules...</p>
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <i class="fas fa-shield-alt"></i>
+        <span>CyberShield</span>
+      </div>
+      <ul class="nav-links" id="navLinks">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#dashboard">Live Dashboard</a></li>
+        <li><a href="#tools">Threat Tools</a></li>
+        <li><a href="#threats">Threats</a></li>
+        <li><a href="#about">About</a></li>
+        <li>
+          <button id="themeToggle" class="btn-ghost" style="padding: 6px 12px; font-size: 0.9rem;" aria-label="Toggle Theme">
+            <i class="fas fa-sun"></i>
+          </button>
+        </li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- HERO SECTION -->
+  <section class="hero" id="home">
+    <div class="background-aurora"></div>
+    <canvas id="particleCanvas"></canvas>
+    <div class="hero-container">
+      <div class="hero-left">
+        <div class="live-badge glass">
+          <span class="pulse-dot"></span>
+          LIVE THREAT MONITOR
+        </div>
+        <h1 class="hero-title">
+          Protect.<br>Detect.<br>Defend.
+        </h1>
+        <div class="typewriter-container">
+          <span class="typewriter-prefix">Powered by: </span>
+          <span class="typewriter-text" id="typewriterText"></span>
+          <span class="typewriter-cursor">|</span>
+        </div>
+        <p class="hero-subtitle">AI-powered cybersecurity awareness platform built to detect threats before they strike.</p>
+        <div class="hero-buttons">
+          <button class="btn-primary" onclick="document.getElementById('tools').scrollIntoView({behavior: 'smooth'})">
+            <i class="fas fa-tools"></i> Explore Tools
+          </button>
+          <button class="btn-ghost" onclick="document.getElementById('dashboard').scrollIntoView({behavior: 'smooth'})">
+            <i class="fas fa-chart-line"></i> Live Dashboard
+          </button>
+        </div>
+      </div>
+      <div class="hero-right">
+        <canvas id="shieldCanvas"></canvas>
+      </div>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-card glass">
+        <i class="fas fa-shield-virus"></i>
+        <div class="stat-number counter" id="countThreats" data-target="22529" data-suffix="">0</div>
+        <div class="stat-label">Active Global Threats</div>
+      </div>
+      <div class="stat-card glass">
+        <i class="fas fa-bullseye"></i>
+        <div class="stat-number counter" id="countEngines" data-target="74" data-suffix="+">0</div>
+        <div class="stat-label">Security Engines Integrated</div>
+      </div>
+      <div class="stat-card glass">
+        <i class="fas fa-users-slash"></i>
+        <div class="stat-number counter" id="countBreaches" data-target="1011" data-suffix="">0</div>
+        <div class="stat-label">Data Breaches Tracked</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD SECTION -->
+  <section class="dashboard" id="dashboard">
+    <div class="section-header">
+      <span class="section-tag glass">REAL-TIME</span>
+      <h2 class="section-title">Global Threat Intelligence</h2>
+      <p class="section-subtitle">Live monitoring of cybersecurity threats worldwide</p>
+    </div>
+    
+    <div class="dashboard-grid">
+      <!-- Left: Doughnut Chart -->
+      <div class="dashboard-card glass" id="threatTypeCard">
+        <h3>Threat Distribution</h3>
+        <div class="chart-container">
+          <canvas id="threatDonutChart"></canvas>
+        </div>
+        <div class="chart-legend" id="threatLegend"></div>
+      </div>
+      
+      <!-- Center: Live Attack Map -->
+      <div class="dashboard-card glass map-card" id="attackMapCard">
+        <div class="feed-header">
+          <h3>Live Attack Map</h3>
+          <span class="live-indicator"><span class="pulse-dot red"></span>LIVE</span>
+        </div>
+        <div id="attackMap" style="width: 100%; height: 300px;"></div>
+      </div>
+
+      <!-- Center-Right: Live Feed -->
+      <div class="dashboard-card glass" id="liveFeedCard" style="display: flex; flex-direction: column;">
+        <div class="feed-header" style="flex-direction: column; align-items: flex-start; gap: 10px;">
+          <div style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+            <h3>Live Threat Feed</h3>
+            <span class="live-indicator"><span class="pulse-dot red"></span>LIVE</span>
+          </div>
+          <input type="text" id="threatSearch" placeholder="Search IP or Threat Type..." style="width: 100%; padding: 8px 12px; border-radius: 6px; border: 1px solid var(--glass-border); background: var(--glass-bg); color: var(--text-primary); font-family: var(--font-mono); font-size: 0.85rem;" autocomplete="off" />
+        </div>
+        <div class="feed-list" id="threatFeed" style="flex: 1; overflow-y: auto;"></div>
+        <button id="viewLogsBtn" class="btn-ghost" style="margin-top: 10px; width: 100%; font-size: 0.8rem; padding: 8px;"><i class="fas fa-history"></i> View Full Threat History</button>
+      </div>
+      
+      <!-- Right: Line Chart -->
+      <div class="dashboard-card glass" id="weeklyCard">
+        <h3>Threats Blocked This Week</h3>
+        <div class="chart-container">
+          <canvas id="weeklyLineChart"></canvas>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Bottom Stats Row -->
+    <div class="dashboard-stats">
+      <div class="dash-stat glass">
+        <i class="fas fa-database"></i>
+        <div class="dash-stat-number counter" id="countPwned" data-target="17658105223">0</div>
+        <div class="dash-stat-label">Pwned Accounts Discovered
+          <span style="display:block; font-size: 0.75rem; color: var(--text-secondary); opacity: 0.7; margin-top: 3px;">(via HaveIBeenPwned API)</span>
+        </div>
+      </div>
+      <div class="dash-stat glass">
+        <i class="fas fa-bug"></i>
+        <div class="dash-stat-number counter" id="countFamilies" data-target="617">0</div>
+        <div class="dash-stat-label">Malware Families Tracked</div>
+      </div>
+      <div class="dash-stat glass">
+        <i class="fas fa-globe"></i>
+        <div class="dash-stat-number counter" id="countCountries" data-target="45">0</div>
+        <div class="dash-stat-label">Targeted Countries (Live)</div>
+      </div>
+      <div class="dash-stat glass">
+        <i class="fas fa-bolt"></i>
+        <div class="dash-stat-number counter" id="countLatency" data-target="120" data-suffix="ms">0</div>
+        <div class="dash-stat-label">True API Latency</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TOOLS SECTION -->
+  <section class="tools" id="tools">
+    <div class="section-header">
+      <span class="section-tag glass">INTERACTIVE</span>
+      <h2 class="section-title">Your Security Toolkit</h2>
+      <p class="section-subtitle">Professional-grade tools to analyze and protect yourself</p>
+    </div>
+    
+    <div class="toolkit-container" id="toolsContainer">
+      <div class="toolkit-tabs">
+        <button class="toolkit-tab active" onclick="switchTool('url')">
+          <i class="fas fa-link"></i> Phishing URL Checker
+        </button>
+        <button class="toolkit-tab" onclick="switchTool('password')">
+          <i class="fas fa-key"></i> Password Analyzer
+        </button>
+        <button class="toolkit-tab" onclick="switchTool('email')">
+          <i class="fas fa-envelope-open-text"></i> Email Scanner
+        </button>
+        <button class="toolkit-tab" onclick="switchTool('ip')">
+          <i class="fas fa-network-wired"></i> IP Lookup
+        </button>
+        <button class="toolkit-tab" onclick="switchTool('score')">
+          <i class="fas fa-chart-pie"></i> Security Score
+        </button>
+      </div>
+      
+      <div class="toolkit-content glass tilt-card">
+        <!-- Tool 1: URL Checker -->
+        <div class="tool-panel active" id="panel-url">
+          <h3>Phishing URL Checker</h3>
+          <p>Analyze any URL against 70+ security engines to identify phishing indicators and malicious intent.</p>
+          <div class="tool-input-group">
+            <input type="url" id="urlInput" placeholder="https://example.com" style="flex: 1;" />
+            <button class="btn-analyze" id="urlAnalyzeBtn">
+              <i class="fas fa-search"></i> Analyze URL
+            </button>
+          </div>
+          <div class="tool-result" id="urlResult" hidden></div>
+        </div>
+        
+        <!-- Tool 2: Password Checker -->
+        <div class="tool-panel" id="panel-password" style="display: none;">
+          <h3>Password Strength Analyzer</h3>
+          <p>Check if your password has been exposed in data breaches and get tips to improve its strength.</p>
+          <div class="tool-input-group password-group">
+            <input type="password" id="passwordInput" placeholder="Enter password to test..." style="flex: 1;" />
+            <button class="toggle-password" id="togglePassword" aria-label="Show password">
+              <i class="fas fa-eye"></i>
+            </button>
+            <button class="btn-analyze" id="pwdAnalyzeBtn">
+              <i class="fas fa-shield-alt"></i> Analyze
+            </button>
+          </div>
+          <div class="strength-meter">
+            <div class="strength-bar" id="strengthBar"></div>
+          </div>
+          <div class="strength-label" id="strengthLabel">Enter a password</div>
+          <div class="tool-result" id="passwordResult" hidden></div>
+        </div>
+        
+        <!-- Tool 3: Email Analyzer -->
+        <div class="tool-panel" id="panel-email" style="display: none;">
+          <h3>Email Phishing Scanner</h3>
+          <p>Paste email content below to detect urgency flags, suspicious URLs, and common phishing tactics.</p>
+          <textarea id="emailInput" placeholder="Paste email content here..." rows="6" style="width: 100%;"></textarea>
+          <button class="btn-analyze" id="emailAnalyzeBtn" style="width: 100%;">
+            <i class="fas fa-microscope"></i> Scan Email Content
+          </button>
+          <div class="tool-result" id="emailResult" hidden></div>
+        </div>
+        
+        <!-- Tool 4: IP Address Lookup -->
+        <div class="tool-panel" id="panel-ip" style="display: none;">
+          <h3>IP Intelligence Lookup</h3>
+          <p>Analyze any IP address to discover its physical location, ISP, and whether it's a VPN, Proxy, or Tor node.</p>
+          <div class="tool-input-group">
+            <input type="text" id="ipInput" placeholder="e.g., 8.8.8.8" style="flex: 1;" />
+            <button class="btn-analyze" id="ipAnalyzeBtn">
+              <i class="fas fa-search-location"></i> Trace IP
+            </button>
+          </div>
+          <div class="tool-result" id="ipResult" hidden style="padding: 0; background: transparent; border: none;"></div>
+        </div>
+
+        <!-- Tool 5: Security Score Card -->
+        <div class="tool-panel" id="panel-score" style="display: none;">
+          <h3>Personal Security Score Card</h3>
+          <p>Answer a few questions about your digital habits to get your personal security score and custom advice.</p>
+          
+          <form id="scoreForm" class="score-form">
+            <div class="question-group">
+              <label>1. Do you use Two-Factor Authentication (2FA) on your main accounts?</label>
+              <select name="q1" required>
+                <option value="10">Yes, on all important accounts</option>
+                <option value="5">Only on some accounts (e.g., bank)</option>
+                <option value="0">No, I don't use 2FA</option>
+              </select>
+            </div>
+            
+            <div class="question-group">
+              <label>2. How do you manage your passwords?</label>
+              <select name="q2" required>
+                <option value="10">I use a Password Manager (e.g., Bitwarden, LastPass)</option>
+                <option value="5">I write them down or memorize different ones</option>
+                <option value="0">I reuse the same password for everything</option>
+              </select>
+            </div>
+
+            <div class="question-group">
+              <label>3. How often do you install software updates on your devices?</label>
+              <select name="q3" required>
+                <option value="10">Automatically / Immediately</option>
+                <option value="5">Usually within a few weeks</option>
+                <option value="0">Rarely, or only when forced</option>
+              </select>
+            </div>
+
+            <div class="question-group">
+              <label>4. Do you use a VPN when connecting to public Wi-Fi?</label>
+              <select name="q4" required>
+                <option value="10">Always</option>
+                <option value="5">Sometimes</option>
+                <option value="0">Never, or I don't know what a VPN is</option>
+              </select>
+            </div>
+
+            <div class="question-group">
+              <label>5. How often do you backup your important data?</label>
+              <select name="q5" required>
+                <option value="10">Regularly (Cloud/External Drive)</option>
+                <option value="5">Occasionally</option>
+                <option value="0">Never</option>
+              </select>
+            </div>
+
+            <button type="button" class="btn-analyze" id="calculateScoreBtn" style="width: 100%; margin-top: 15px;">
+              <i class="fas fa-calculator"></i> Calculate My Score
+            </button>
+          </form>
+
+          <div class="tool-result" id="scoreResult" hidden></div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Quiz Banner -->
+    <div class="quiz-banner tilt-card">
+      <div class="quiz-banner-content">
+        <h3><i class="fas fa-brain"></i> Test Your Cybersecurity Knowledge</h3>
+        <p>Take our interactive 10-question quiz to see how well you can identify and prevent real-world cyber attacks.</p>
+      </div>
+      <button class="btn-primary" onclick="openQuizModal()">
+        Start Quiz <i class="fas fa-arrow-right"></i>
+      </button>
+    </div>
+  </section>
+
+  <!-- THREATS SECTION -->
+  <section class="threats" id="threats">
+    <div class="section-header">
+      <span class="section-tag glass">EDUCATION</span>
+      <h2 class="section-title">Cyber Threats Directory</h2>
+      <p class="section-subtitle">Learn about common attacks and how to prevent them</p>
+    </div>
+    
+    <div class="threats-grid" id="threatsContainer">
+      <!-- Generated by JS -->
+    </div>
+  </section>
+
+  <!-- TIPS CAROUSEL -->
+  <section class="carousel-section">
+    <div class="carousel-container glass">
+      <div class="carousel-track" id="carouselTrack">
+        <!-- Generated by JS -->
+      </div>
+      <div class="carousel-dots" id="carouselDots">
+        <!-- Generated by JS -->
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT PROJECT SECTION -->
+  <section class="about-project" id="about-project" style="padding: 100px 5%; position: relative;">
+    <div class="section-header">
+      <span class="section-tag glass">FEATURES</span>
+      <h2 class="section-title">What's Inside CyberShield?</h2>
+      <p class="section-subtitle">A complete suite of tools to protect your digital identity</p>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; max-width: 1200px; margin: 0 auto;">
+      
+      <!-- Card 1 -->
+      <div class="glass tilt-card" style="padding: 30px; border-radius: 16px; border-top: 3px solid var(--accent); transition: transform 0.3s ease;">
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+          <i class="fas fa-link" style="font-size: 2rem; color: var(--accent);"></i>
+          <h3 style="font-size: 1.25rem; color: var(--text-primary); margin: 0;">Phishing URL Checker</h3>
+        </div>
+        <p style="color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem; margin: 0;">
+          Scan suspicious links against 70+ security engines to identify phishing attempts, malware hosts, and malicious intent before you click.
+        </p>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="glass tilt-card" style="padding: 30px; border-radius: 16px; border-top: 3px solid var(--success); transition: transform 0.3s ease;">
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+          <i class="fas fa-key" style="font-size: 2rem; color: var(--success);"></i>
+          <h3 style="font-size: 1.25rem; color: var(--text-primary); margin: 0;">Password Analyzer</h3>
+        </div>
+        <p style="color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem; margin: 0;">
+          Check if your passwords have been exposed in known data breaches (HaveIBeenPwned API) and get actionable advice to strengthen your credentials.
+        </p>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="glass tilt-card" style="padding: 30px; border-radius: 16px; border-top: 3px solid #FF8C00; transition: transform 0.3s ease;">
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+          <i class="fas fa-envelope-open-text" style="font-size: 2rem; color: #FF8C00);"></i>
+          <h3 style="font-size: 1.25rem; color: var(--text-primary); margin: 0;">Email Scanner</h3>
+        </div>
+        <p style="color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem; margin: 0;">
+          Analyze email content for urgency flags, deceptive URLs, and common psychological manipulation tactics used by attackers.
+        </p>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="glass tilt-card" style="padding: 30px; border-radius: 16px; border-top: 3px solid #b142ff; transition: transform 0.3s ease;">
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+          <i class="fas fa-network-wired" style="font-size: 2rem; color: #b142ff);"></i>
+          <h3 style="font-size: 1.25rem; color: var(--text-primary); margin: 0;">IP Intelligence Lookup</h3>
+        </div>
+        <p style="color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem; margin: 0;">
+          Trace any IP address to discover its physical location, ISP details, and detect if it belongs to a VPN, proxy, or Tor node.
+        </p>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="glass tilt-card" style="padding: 30px; border-radius: 16px; border-top: 3px solid #00ff88; transition: transform 0.3s ease;">
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+          <i class="fas fa-chart-pie" style="font-size: 2rem; color: #00ff88);"></i>
+          <h3 style="font-size: 1.25rem; color: var(--text-primary); margin: 0;">Security Score Card</h3>
+        </div>
+        <p style="color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem; margin: 0;">
+          Take a comprehensive quiz about your digital habits to calculate your overall security score and receive a personalized action plan.
+        </p>
+      </div>
+
+      <!-- Card 6 -->
+      <div class="glass tilt-card" style="padding: 30px; border-radius: 16px; border-top: 3px solid #00D4FF; transition: transform 0.3s ease;">
+        <div style="display: flex; align-items: center; gap: 15px; margin-bottom: 15px;">
+          <i class="fas fa-robot" style="font-size: 2rem; color: #00D4FF);"></i>
+          <h3 style="font-size: 1.25rem; color: var(--text-primary); margin: 0;">CyberBot AI</h3>
+        </div>
+        <p style="color: var(--text-secondary); line-height: 1.6; font-size: 0.95rem; margin: 0;">
+          Interact with our intelligent AI chatbot powered by Google Gemini, trained on the latest cybersecurity knowledge to get instant answers.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ABOUT SECTION -->
+  <section class="about" id="about">
+    <div class="section-header">
+      <span class="section-tag glass">DEVELOPER</span>
+      <h2 class="section-title">About Me</h2>
+    </div>
+    <div class="about-container glass">
+      <div class="about-left">
+        <div class="profile-img-wrapper">
+          <div class="profile-ring"></div>
+          <img 
+            src="assets/images/tirth.jpg" 
+            alt="Tirth Kapatel"
+            class="profile-photo"
+            onerror="this.src='https://ui-avatars.com/api/?name=Tirth+Kapatel&size=300&background=0A0E1A&color=00D4FF&bold=true&font-size=0.33'"
+          >
+        </div>
+
+      </div>
+      
+      <div class="about-right">
+        <div class="about-badge glass">Diploma Computer Engineering | GTU | Cybersecurity Enthusiast</div>
+        <h2 class="about-name">Tirth Kapatel</h2>
+        <p class="about-bio">
+          I'm a Computer Engineering student at GTU, passionate about cybersecurity, 
+          ethical hacking, and building tools that make the digital world safer. 
+          I have hands-on experience with Kali Linux, penetration testing, and building 
+          real-world security applications. Currently pursuing my IBM Cybersecurity internship 
+          to turn my passion into professional expertise.
+        </p>
+        
+        <div class="skills">
+          <h4>Technical Skills</h4>
+          <div class="skill-item">
+            <div class="skill-info"><span>Ethical Hacking</span><span>80%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar" data-value="80"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info"><span>Python</span><span>75%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar" data-value="75"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info"><span>Network Security</span><span>70%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar" data-value="70"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info"><span>Web Development</span><span>85%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar" data-value="85"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info"><span>Kali Linux</span><span>78%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar" data-value="78"></div></div>
+          </div>
+          <div class="skill-item">
+            <div class="skill-info"><span>Java</span><span>72%</span></div>
+            <div class="skill-bar-bg"><div class="skill-bar" data-value="72"></div></div>
+          </div>
+        </div>
+        
+        <div class="about-buttons" style="display: flex; gap: 10px; flex-wrap: wrap; margin-top: 25px;">
+          <a href="https://github.com/Tirthkapatel" target="_blank" class="btn-ghost" style="flex: 1; min-width: 120px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <i class="fab fa-github"></i> GitHub
+          </a>
+          <a href="mailto:kapateltirth209@gmail.com" class="btn-ghost" style="flex: 1; min-width: 120px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <i class="fas fa-envelope"></i> Gmail
+          </a>
+          <a href="https://t.me/KapatelTirth" target="_blank" class="btn-ghost" style="flex: 1; min-width: 120px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <i class="fab fa-telegram-plane"></i> Telegram
+          </a>
+          <a href="https://www.instagram.com/tirth.cmd" target="_blank" class="btn-ghost" style="flex: 1; min-width: 120px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <i class="fab fa-instagram"></i> Instagram
+          </a>
+          <a href="https://www.linkedin.com/in/kachhiya-tirth-gp-kheda-comp-dte-330978327?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" class="btn-ghost" style="flex: 1; min-width: 120px; text-decoration: none; display: flex; align-items: center; justify-content: center; gap: 8px;">
+            <i class="fab fa-linkedin"></i> LinkedIn
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PORTFOLIO LINK SECTION -->
+  <section class="portfolio-cta" style="text-align: center; padding: 20px 20px 60px 20px;">
+    <p style="color: var(--text-secondary); margin-bottom: 15px; font-family: var(--font-mono); font-size: 0.95rem;">Want to see more of my projects and work?</p>
+    <a href="https://tirth-kapatel.vercel.app" target="_blank" class="btn-primary" style="display: inline-flex; align-items: center; justify-content: center; padding: 12px 35px; font-size: 1.05rem; text-decoration: none; gap: 10px;">
+      <i class="fas fa-globe"></i> Visit My Portfolio
+    </a>
+  </section>
+  <!-- Threat Logs Modal -->
+  <div id="threatLogsModal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); z-index: 10000; justify-content: center; align-items: center; backdrop-filter: blur(5px);">
+    <div class="glass" style="width: 90%; max-width: 800px; max-height: 80vh; background: var(--primary); padding: 20px; border-radius: 12px; display: flex; flex-direction: column;">
+      <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border); padding-bottom: 10px; margin-bottom: 15px;">
+        <h3 style="margin: 0; color: var(--secondary);"><i class="fas fa-history"></i> Session Threat Logs</h3>
+        <button id="closeLogsBtn" class="btn-ghost" style="padding: 5px 10px;"><i class="fas fa-times"></i></button>
+      </div>
+      <div style="flex: 1; overflow-y: auto;">
+        <table style="width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.9rem;">
+          <thead>
+            <tr style="text-align: left; color: var(--accent); border-bottom: 1px solid var(--glass-border);">
+              <th style="padding: 10px;">Time</th>
+              <th style="padding: 10px;">IP Address</th>
+              <th style="padding: 10px;">Type / Tag</th>
+              <th style="padding: 10px;">Origin</th>
+              <th style="padding: 10px;">Action</th>
+            </tr>
+          </thead>
+          <tbody id="logsTableBody">
+            <!-- Logs populated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-top-line"></div>
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <i class="fas fa-shield-alt"></i> CyberShield
+        </div>
+        <p>Protecting the digital world, one scan at a time.</p>
+      </div>
+      <div class="footer-links">
+        <h4>Quick Links</h4>
+        <a href="#home">Home</a>
+        <a href="#dashboard">Dashboard</a>
+        <a href="#tools">Tools</a>
+        <a href="#threats">Threats</a>
+      </div>
+      <div class="footer-tools">
+        <h4>Security Tools</h4>
+        <a href="#tools" onclick="document.getElementById('urlTool').scrollIntoView()">URL Checker</a>
+        <a href="#tools" onclick="document.getElementById('passwordTool').scrollIntoView()">Password Analyzer</a>
+        <a href="#tools" onclick="document.getElementById('emailTool').scrollIntoView()">Email Scanner</a>
+        <a href="javascript:void(0)" onclick="openQuizModal()">Security Quiz</a>
+      </div>
+      <div class="footer-connect">
+        <h4>Connect</h4>
+        <a href="#"><i class="fab fa-github"></i> GitHub</a>
+        <a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 CyberShield | Built by <strong>Tirth Kapatel</strong> for IBM Internship</p>
+      <p>GTU Diploma Computer Engineering | Sem 5</p>
+    </div>
+  </footer>
+
+  <!-- MODALS -->
+  <!-- Quiz Modal -->
+  <div class="modal" id="quizModal">
+    <div class="modal-content glass">
+      <button class="modal-close" onclick="closeQuizModal()"><i class="fas fa-times"></i></button>
+      <div id="quizContainer">
+        <!-- Quiz content injected here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Threat Info Modal -->
+  <div class="modal" id="threatModal">
+    <div class="modal-content glass">
+      <button class="modal-close" onclick="closeThreatModal()"><i class="fas fa-times"></i></button>
+      <div id="threatModalContent">
+        <!-- Threat content injected here -->
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Files -->
+  <script src="js/particles.js"></script>
+  <script src="js/network-canvas.js"></script>
+  <script src="js/typewriter.js"></script>
+  <script src="js/counters.js"></script>
+  <script src="js/threat-feed.js"></script>
+  <script src="js/attack-map.js"></script>
+  <script src="js/url-checker.js"></script>
+  <script src="js/password-checker.js"></script>
+  <script src="js/email-checker.js"></script>
+  <script src="js/ip-checker.js"></script>
+  <script src="js/quiz.js"></script>
+  <script src="js/carousel.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/navbar.js"></script>
+  <script src="js/modal.js"></script>
+  <script src="js/tilt-cards.js"></script>
+  <script src="js/scroll-animations.js"></script>
+  <script src="js/main.js?v=2"></script>
+  <script src="js/cyberbot.js?v=14"></script>
+</body>
+</html>

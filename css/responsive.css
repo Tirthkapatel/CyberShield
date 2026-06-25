@@ -152,7 +152,7 @@
 /* Small mobile: up to 480px */
 @media (max-width: 480px) {
   section {
-    padding: 80px 5%;
+    padding: 50px 5%;
   }
   
   .hero-title {

@@ -227,14 +227,14 @@
         <button class="toolkit-tab active" onclick="switchTool('url')">
           <i class="fas fa-link"></i> Phishing URL Checker
         </button>
-        <button class="toolkit-tab" onclick="switchTool('password')">
-          <i class="fas fa-key"></i> Password Analyzer
+        <button class="toolkit-tab" onclick="switchTool('ip')">
+          <i class="fas fa-network-wired"></i> IP Lookup
         </button>
         <button class="toolkit-tab" onclick="switchTool('email')">
           <i class="fas fa-envelope-open-text"></i> Email Scanner
         </button>
-        <button class="toolkit-tab" onclick="switchTool('ip')">
-          <i class="fas fa-network-wired"></i> IP Lookup
+        <button class="toolkit-tab" onclick="switchTool('password')">
+          <i class="fas fa-key"></i> Password Analyzer
         </button>
         <button class="toolkit-tab" onclick="switchTool('score')">
           <i class="fas fa-chart-pie"></i> Security Score
@@ -255,7 +255,31 @@
           <div class="tool-result" id="urlResult" hidden></div>
         </div>
         
-        <!-- Tool 2: Password Checker -->
+        <!-- Tool 2: IP Address Lookup -->
+        <div class="tool-panel" id="panel-ip" style="display: none;">
+          <h3>IP Intelligence Lookup</h3>
+          <p>Analyze any IP address to discover its physical location, ISP, and whether it's a VPN, Proxy, or Tor node.</p>
+          <div class="tool-input-group">
+            <input type="text" id="ipInput" placeholder="e.g., 8.8.8.8" style="flex: 1;" />
+            <button class="btn-analyze" id="ipAnalyzeBtn">
+              <i class="fas fa-search-location"></i> Trace IP
+            </button>
+          </div>
+          <div class="tool-result" id="ipResult" hidden style="padding: 0; background: transparent; border: none;"></div>
+        </div>
+        
+        <!-- Tool 3: Email Analyzer -->
+        <div class="tool-panel" id="panel-email" style="display: none;">
+          <h3>Email Phishing Scanner</h3>
+          <p>Paste email content below to detect urgency flags, suspicious URLs, and common phishing tactics.</p>
+          <textarea id="emailInput" placeholder="Paste email content here..." rows="6" style="width: 100%;"></textarea>
+          <button class="btn-analyze" id="emailAnalyzeBtn" style="width: 100%;">
+            <i class="fas fa-microscope"></i> Scan Email Content
+          </button>
+          <div class="tool-result" id="emailResult" hidden></div>
+        </div>
+        
+        <!-- Tool 4: Password Checker -->
         <div class="tool-panel" id="panel-password" style="display: none;">
           <h3>Password Strength Analyzer</h3>
           <p>Check if your password has been exposed in data breaches and get tips to improve its strength.</p>
@@ -273,30 +297,6 @@
           </div>
           <div class="strength-label" id="strengthLabel">Enter a password</div>
           <div class="tool-result" id="passwordResult" hidden></div>
-        </div>
-        
-        <!-- Tool 3: Email Analyzer -->
-        <div class="tool-panel" id="panel-email" style="display: none;">
-          <h3>Email Phishing Scanner</h3>
-          <p>Paste email content below to detect urgency flags, suspicious URLs, and common phishing tactics.</p>
-          <textarea id="emailInput" placeholder="Paste email content here..." rows="6" style="width: 100%;"></textarea>
-          <button class="btn-analyze" id="emailAnalyzeBtn" style="width: 100%;">
-            <i class="fas fa-microscope"></i> Scan Email Content
-          </button>
-          <div class="tool-result" id="emailResult" hidden></div>
-        </div>
-        
-        <!-- Tool 4: IP Address Lookup -->
-        <div class="tool-panel" id="panel-ip" style="display: none;">
-          <h3>IP Intelligence Lookup</h3>
-          <p>Analyze any IP address to discover its physical location, ISP, and whether it's a VPN, Proxy, or Tor node.</p>
-          <div class="tool-input-group">
-            <input type="text" id="ipInput" placeholder="e.g., 8.8.8.8" style="flex: 1;" />
-            <button class="btn-analyze" id="ipAnalyzeBtn">
-              <i class="fas fa-search-location"></i> Trace IP
-            </button>
-          </div>
-          <div class="tool-result" id="ipResult" hidden style="padding: 0; background: transparent; border: none;"></div>
         </div>
 
         <!-- Tool 5: Security Score Card -->
@@ -613,7 +613,11 @@
         <a href="#tools" onclick="document.getElementById('emailTool').scrollIntoView()">Email Scanner</a>
         <a href="javascript:void(0)" onclick="openQuizModal()">Security Quiz</a>
       </div>
-     
+      <div class="footer-connect">
+        <h4>Connect</h4>
+        <a href="#"><i class="fab fa-github"></i> GitHub</a>
+        <a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a>
+      </div>
     </div>
     <div class="footer-bottom">
       <p>&copy; 2026 CyberShield | Built by <strong>Tirth Kapatel</strong> for IBM Internship</p>
